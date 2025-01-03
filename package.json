@@ -1,0 +1,29 @@
+{
+  "name": "r3f-bevel-geometry",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.109.5",
+    "@react-three/fiber": "^8.15.15",
+    "gsap": "^3.12.5",
+    "leva": "0.9.34",
+    "next": "14.1.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "roundedcylinder": "https://github.com/cgkoswund/RoundedCylinder.git",
+    "sass": "^1.77.8",
+    "three": "^0.160.1",
+    "tweakpane": "4.0.5",
+    "zustand": "^4.5.4"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
