@@ -1,9 +1,9 @@
-import useAnimationStore from "@/stores/useAnimationStore";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
-import { useControls, button, folder } from "leva";
+import { useControls } from "leva";
 
 import * as THREE from "three";
+import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 const Sidebar = () => {
   const morphFactor = useRef({ pyramid: 0, cube: 1, sphere: 0 });
@@ -24,7 +24,7 @@ const Sidebar = () => {
     meshSegments: {
       label: "",
       value: 5,
-      max: 64,
+      max: 24,
       min: 3,
       step: 1,
     },
@@ -64,7 +64,9 @@ const Sidebar = () => {
       meshSegments,
       meshSegments,
       meshSegments
-    );
+    )
+      //prevent sharp edges from showing on sphere too
+      .toNonIndexed();
 
     //loop through points
     const positionsArray = tempGeometry.attributes.position.array;
@@ -107,8 +109,12 @@ const Sidebar = () => {
       positionsArray[i2] = finalVector.y;
       positionsArray[i3] = finalVector.z;
     }
-    tempGeometry.computeVertexNormals();
-    tempGeometry.needsUpdate = true;
+    //force smooth shading
+    BufferGeometryUtils.toCreasedNormals(tempGeometry, (0.5 * Math.PI) / 2);
+
+    // finalGeometry.needsUpdate = true;
+    // finalGeometry.computeVertexNormals();
+    // finalGeometry.needsUpdate = true;
 
     // re-render geometry on screen
     setMorphGeometry(tempGeometry);
@@ -168,7 +174,7 @@ const Sidebar = () => {
     <>
       <mesh>
         <primitive attach={"geometry"} object={morphGeometry} />
-        <meshNormalMaterial wireframe={wireframe} />
+        <meshNormalMaterial wireframe={wireframe} flatShading={false} />
       </mesh>
     </>
   );
